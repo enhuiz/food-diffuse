@@ -52,7 +52,7 @@ class Runner(torchzq.LegacyRunner):
         model = Diffusion(
             num_classes=1,
             class_dim=128,
-            factors=[2, 2, 2, 2, 2],
+            factors=[2, 2, 2, 2, 1],
             up_pre_dim=384,
             up_post_dim=3,
             up_dims=[256, 256, 128, 64, 64],
