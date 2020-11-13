@@ -1,0 +1,9 @@
+opencv_python==4.4.0.42
+matplotlib==3.3.2
+torchzq==1.0.5.dev0
+numpy==1.18.5
+tqdm==4.50.2
+torch==1.7.0
+torchvision==0.8.1
+einops==0.3.0
+matplotlib==3.3.3
