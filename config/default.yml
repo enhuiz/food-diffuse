@@ -1,0 +1,7 @@
+name: $from(config)
+runner: scripts/runner.py
+
+train: 
+  lr: 1e-4
+  batch_size: 32
+  use_fp16: true
