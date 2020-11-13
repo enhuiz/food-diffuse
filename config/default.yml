@@ -1,7 +1,8 @@
 name: $from(config)
 runner: scripts/runner.py
 
-train: 
+train:
   lr: 1e-4
-  batch_size: 32
+  batch_size: 64
   use_fp16: true
+  plot_every: 200

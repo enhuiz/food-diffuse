@@ -24,8 +24,8 @@ class Runner(torchzq.LegacyRunner):
     def __init__(
         self,
         root: Path = "data/processed",
-        base_size=[72, 72],
-        crop_size=[64, 64],
+        base_size=[144, 144],
+        crop_size=[128, 128],
         ds_repeat: int = 100,
         **kwargs,
     ):
@@ -52,7 +52,7 @@ class Runner(torchzq.LegacyRunner):
         model = Diffusion(
             num_classes=1,
             class_dim=128,
-            factors=[2, 2, 2, 2, 1],
+            factors=[2, 2, 2, 2, 2],
             up_pre_dim=384,
             up_post_dim=3,
             up_dims=[256, 256, 128, 64, 64],
