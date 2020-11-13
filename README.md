@@ -12,6 +12,12 @@ The model used in this repo is a modified 2D version of [WaveGrad](https://waveg
 pip install -r requirements.txt
 ```
 
+### Preprocess
+
+```
+zouqi config/default.yml preprocess
+```
+
 ### Train
 
 ```
@@ -34,4 +40,4 @@ The implementation of the diffusion model is mainly based on the [WaveGrad imple
 
 ## Related project
 
-[FoodGAN](https://github.com/enhuiz/foodgan)
+- [FoodGAN](https://github.com/enhuiz/food-gan)
