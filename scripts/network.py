@@ -162,7 +162,6 @@ class Network(nn.Module):
         down_pre_dim,
         down_dims,
         down_dilations,
-        in_channels=3,
     ):
         super().__init__()
 
