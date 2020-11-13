@@ -24,8 +24,8 @@ class Runner(torchzq.LegacyRunner):
     def __init__(
         self,
         root: Path = "data/processed",
-        base_size=[144, 144],
-        crop_size=[128, 128],
+        base_size=[72, 72],
+        crop_size=[64, 64],
         ds_repeat: int = 100,
         **kwargs,
     ):
