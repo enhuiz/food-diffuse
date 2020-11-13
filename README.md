@@ -1,4 +1,4 @@
-# Food Diffuse: Generate Fake Foods using Denoising Diffusion Probablistic Model
+# Food Diffuse: Generate Fake Foods using Denoising Diffusion Probabilistic Model
 
 ## About the model
 
