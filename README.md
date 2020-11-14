@@ -32,7 +32,9 @@ tensorboard --logdir logs
 
 ## Results
 
-TODO
+Around 45k iterations:
+ 
+![](image/2020-11-14-12-12-14.png)
 
 ## Credits
 
