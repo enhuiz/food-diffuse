@@ -30,20 +30,24 @@ class Diffusion(nn.Module):
     def set_new_noise_schedule(self, betas):
         alphas = 1 - betas
         alpha_bars = alphas.cumprod(dim=0)
-        sqrt_prepended_alpha_bars = torch.cat([torch.ones(1), alpha_bars]).sqrt()
+        sqrt_alpha_bars = alpha_bars.sqrt()
 
-        self.betas = betas.to(self.device)
-        self.alphas = alphas.to(self.device)
-        self.alpha_bars = alpha_bars.to(self.device)
-        self.sqrt_prepended_alpha_bars = sqrt_prepended_alpha_bars.to(self.device)
+        # put things to device
+        self.register_variable_on_device("betas", betas)
+        self.register_variable_on_device("alphas", alphas)
+        self.register_variable_on_device("alpha_bars", alpha_bars)
+        self.register_variable_on_device("sqrt_alpha_bars", sqrt_alpha_bars)
+
+    def register_variable_on_device(self, name, value):
+        setattr(self, name, value.to(self.device))
 
     def sample_continuous_noise_level(self, batch_size):
-        s = np.random.randint(1, self.n_iters + 1, batch_size)
+        s = np.random.randint(0, self.n_iters, batch_size)
         noise_level = torch.tensor(
             [
                 np.random.uniform(
-                    self.sqrt_prepended_alpha_bars[si - 1].item(),
-                    self.sqrt_prepended_alpha_bars[si].item(),
+                    self.sqrt_alpha_bars[si].item(),
+                    self.sqrt_alpha_bars[si - 1].item() if si > 0 else 1,
                 )
                 for si in s
             ]
@@ -87,9 +91,7 @@ class Diffusion(nn.Module):
             coef1 = 1 / self.alphas[t].sqrt()
             coef2 = (1 - self.alphas[t]) / (1 - self.alpha_bars[t]).sqrt()
 
-            noise_level = repeat(
-                self.sqrt_prepended_alpha_bars[t], "-> b ", b=batch_size
-            )
+            noise_level = repeat(self.sqrt_alpha_bars[t], "-> b ", b=batch_size)
             noise_level = noise_level.to(self.device)
 
             eps_recon = self.network(labels, ys[-1], noise_level)
@@ -99,8 +101,8 @@ class Diffusion(nn.Module):
             if t > 0:
                 eps = torch.randn_like(yt)
                 sigma = (
-                    (1.0 - self.alpha_bars[t - 1])
-                    / (1.0 - self.alpha_bars[t])
+                    (1 - self.alpha_bars[t - 1])
+                    / (1 - self.alpha_bars[t])
                     * self.betas[t]
                 ).sqrt()
                 yt += sigma * eps
