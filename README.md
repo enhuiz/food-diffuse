@@ -32,9 +32,9 @@ tensorboard --logdir logs
 
 ## Results
 
-Around 45k iterations:
+Samples from 46.2k iterations:
  
-![](image/2020-11-14-12-12-14.png)
+![](image/2020-11-14-15-01-46.png)
 
 ## Credits
 
